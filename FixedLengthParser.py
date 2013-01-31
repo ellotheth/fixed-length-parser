@@ -35,3 +35,8 @@ class FixedLengthParser(object):
                 return self._parseValue(f, line)
         
         return None
+
+    def parseFile(self, filename):
+        with open(filename, 'r') as f:
+            for line in f:
+                yield self.getFields(line)

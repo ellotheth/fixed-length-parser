@@ -1,3 +1,4 @@
+import unittest.mock as mock
 import unittest as u
 import FixedLengthParser as flp
 
@@ -66,7 +67,15 @@ class TestParse(u.TestCase):
         for k, v in p.getFields(line).items():
             self.assertIsNone(v)
         
+    def test_parsefile(self):
+        p = flp.FixedLengthParser(self.fields, self.calls)
         
-
+        m = mock.mock_open(read_data=self.line)
+        with mock.patch('FixedLengthParser.open', m, create=True):
+            for fields in p.parseFile('test'):
+                self.assertIn('two', fields)
+                self.assertEqual('owt', fields['two'])
+        m.assert_called_once_with('test', 'r')
+        
 if __name__ == '__main__':
     u.main()
