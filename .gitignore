@@ -1,1 +1,5 @@
 *pycache*
+*.set
+*.txt
+*.csv
+*.pyc
