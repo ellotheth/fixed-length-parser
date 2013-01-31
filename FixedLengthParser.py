@@ -36,7 +36,8 @@ class FixedLengthParser(object):
         
         return None
 
-    def parseFile(self, filename):
+    def parseFile(self, filename, skipConditions = ()):
         with open(filename, 'r') as f:
             for line in f:
+                if True in [skip(line) for skip in skipConditions]: continue
                 yield self.getFields(line)

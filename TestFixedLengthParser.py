@@ -75,7 +75,13 @@ class TestParse(u.TestCase):
             for fields in p.parseFile('test'):
                 self.assertIn('two', fields)
                 self.assertEqual('owt', fields['two'])
-        m.assert_called_once_with('test', 'r')
+            m.assert_called_with('test', 'r')
+        
+            goodLines = False
+            for fields in p.parseFile('test2', (lambda s: len(s) > 3,)):
+                goodLines = True
+            self.assertFalse(goodLines)
+            m.assert_called_with('test2', 'r')
         
 if __name__ == '__main__':
     u.main()
