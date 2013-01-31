@@ -19,7 +19,7 @@ class FixedLengthParser(object):
         if fielddef.name in self.callbacks:
             val = self.callbacks[fielddef.name](val)
             
-        return val.strip()
+        return val.strip() if len(val) else None
         
     def getFields(self, line):
         fields = c.OrderedDict()
